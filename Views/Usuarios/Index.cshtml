@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "Usuarios";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, IList<string>>;
+    var allRoles = ViewBag.AllRoles as List<Microsoft.AspNetCore.Identity.IdentityRole>;
+}
+
+<h2>Gestión de Usuarios</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Rol actual</th>
+            <th>Asignar nuevo rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@string.Join(", ", userRoles[user.Id])</td>
+                <td>
+                    <form asp-action="AsignarRol" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="rol" class="form-select form-select-sm d-inline w-auto">
+                            <option value="">Seleccione un rol</option>
+                            @foreach (var rol in allRoles)
+                            {
+                                <option value="@rol.Name">@rol.Name</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

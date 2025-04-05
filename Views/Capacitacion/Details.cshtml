@@ -1,0 +1,27 @@
+﻿@model AppCapacitacion.Models.Capacitacion
+
+@{
+    ViewData["Title"] = "Detalles de Capacitación";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Capacitación</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.Nombre</dd>
+
+        <dt class="col-sm-3">Fecha</dt>
+        <dd class="col-sm-9">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Instructor</dt>
+        <dd class="col-sm-9">@Model.Instructor?.Nombre</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</div>
